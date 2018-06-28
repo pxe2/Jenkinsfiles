@@ -34,4 +34,4 @@ RUN chmod +x /usr/bin/docker-compose
 
 RUN apt-get update
 
-CMD [ '/bin/bash' ]
+CMD ["/bin/bash"]
