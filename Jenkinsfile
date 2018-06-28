@@ -17,11 +17,8 @@ pipeline {
         stage ('Checkout and build iPXE Builder') {
             steps {
                 dir('build_ipxe') {
-                    git changelog: false, branch: "master", poll: false, url: 'https://github.com/pxe2/dockerfile-ipxe-builder.git'
-                    sh 'echo "$PWD"'
                     sh 'mkdir -p build'
                     sh 'docker run -v "$PWD/build":/ipxe/src/bin pxe2/ipxe-builder make'
-                    sh 'tree'
                 }
             } 
         }
@@ -29,9 +26,7 @@ pipeline {
             steps {
                 dir('build_menu') {
                     git changelog: false, branch: "master", poll: false, url: 'https://github.com/pxe2/puppet-pxe2_ipxe_menus.git'
-                    sh './build.sh'
-                    sh './menus.sh'
-                    sh 'tree'
+                    sh 'rm -rf build && ./build.sh && ./menus.sh'
                 }
             } 
         }
@@ -55,7 +50,7 @@ pipeline {
     } 
     post {
             always {
-                cleanWs()
+               //cleanWs()
             }
     }
 }
