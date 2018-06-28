@@ -35,10 +35,26 @@ pipeline {
                 }
             } 
         }
+        stage ('Organize files') {
+            steps {
+                sh ''
+            }
+        }
+        stage ('Code signing') {
+            steps {
+                sh ''
+            }
+        }
+        stage ('Upload to GitHub') {
+            steps {
+                sh ''
+            }
+        }
+
     } 
     post {
             always {
-                cleanWS()
+                cleanWs()
             }
     }
 }
