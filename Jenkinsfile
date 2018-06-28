@@ -18,15 +18,16 @@ pipeline {
             steps {
                 dir('build_ipxe') {
                     sh 'mkdir -p build'
-                    sh 'docker run -v "$PWD/build":/ipxe/src/bin pxe2/ipxe-builder make'
+                    sh 'docker run -v  `pwd`/build:/ipxe/src/bin pxe2/ipxe-builder make'
                 }
             } 
         }
         stage ('Checkout and build iPXE Menus') {
             steps {
                 dir('build_menu') {
-                    git changelog: false, branch: "master", poll: false, url: 'https://github.com/pxe2/puppet-pxe2_ipxe_menus.git'
-                    sh 'rm -rf build && ./build.sh && ./menus.sh'
+
+                    sh 'mkdir -p build'
+                    sh 'docker run -v `pwd`/build:/pxe2 pxe2/ipxe-menu-builder'
                 }
             } 
         }
