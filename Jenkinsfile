@@ -1,10 +1,7 @@
 def SUFFIX = ''
 
 pipeline {
-    agent {
-        dockerfile {
-            args '-v /vagrant:/vagrant'
-        }
+    agent any
     }
     parameters {
         string (name: 'VERSION_PREFIX', defaultValue: '0.0.0', description: 'pxe.to version')
@@ -32,6 +29,7 @@ pipeline {
                 dir('build_ipxe'){
                     git changelog: false, branch: "master", poll: false, url: 'https://github.com/pxe2/dockerfile-ipxe-builder.git'
                     sh './build.sh'
+                    sh 'docker run -v /tmp/ipxe-builder/bin:/ipxe/src/bin pxe2/ipxe-builder make'
                     sh 'tree'
                 }
             } 
