@@ -8,9 +8,6 @@ pipeline {
     }
     parameters {
         string (name: 'VERSION_PREFIX', defaultValue: '0.0.0', description: 'pxe.to version')
-        string (name: "MENU_BUILDER_VERSION", defaultValue: '0.0.0', description 'ipxe menu builder version')
-        string (name: "IPXE_BUILDER_VERSION", defaultValue: '0.0.4', description 'ipxe builder version')
-
     }
     environment {
         BUILD_TAG = "${env.BUILD_TAG}".replaceAll('%2F','_')
