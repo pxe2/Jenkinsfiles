@@ -22,6 +22,7 @@ pipeline {
                 dir('build_menu'){
                     git changelog: false, branch: "master", poll: false, url: 'https://github.com/pxe2/puppet-pxe2_ipxe_menus.git'
                     sh './build.sh'
+                    sh './menus.sh'
                     sh 'tree'
                 }
             } 
