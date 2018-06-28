@@ -14,6 +14,17 @@ pipeline {
         buildDiscarder(logRotator(numToKeepStr: '30'))
     }
     stages {
+        stage ('Checkout and build iPXE Builder') {
+            steps {
+                dir('build_ipxe') {
+                    git changelog: false, branch: "master", poll: false, url: 'https://github.com/pxe2/dockerfile-ipxe-builder.git'
+                    sh 'echo "$PWD"'
+                    sh 'mkdir -p build'
+                    sh 'docker run -v "$PWD/build":/ipxe/src/bin pxe2/ipxe-builder make'
+                    sh 'tree'
+                }
+            } 
+        }
         stage ('Checkout and build iPXE Menus') {
             steps {
                 dir('build_menu') {
@@ -24,16 +35,7 @@ pipeline {
                 }
             } 
         }
-        stage ('Checkout and build iPXE Builder') {
-            steps {
-                dir('build_ipxe') {
-                    git changelog: false, branch: "master", poll: false, url: 'https://github.com/pxe2/dockerfile-ipxe-builder.git'
-                    sh 'echo "$PWD"'
-                    sh 'docker run -v "$PWD":/ipxe/src/bin pxe2/ipxe-builder make'
-                    sh 'tree'
-                }
-            } 
-        }
+        
         stage ('Organize files') {
             steps {
                 sh ''
