@@ -34,9 +34,5 @@ pipeline {
                 }
             } 
         }
-        stage ('Collect files')
-        {
-            
-        }
     }
 }
