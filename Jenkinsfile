@@ -2,7 +2,7 @@ def SUFFIX = ''
 
 pipeline {
     agent any
-    }
+    
     parameters {
         string (name: 'VERSION_PREFIX', defaultValue: '0.0.0', description: 'pxe.to version')
     }
