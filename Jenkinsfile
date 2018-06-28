@@ -29,7 +29,7 @@ pipeline {
                 dir('build_ipxe') {
                     git changelog: false, branch: "master", poll: false, url: 'https://github.com/pxe2/dockerfile-ipxe-builder.git'
                     sh './build.sh'
-                    sh 'docker run -v "$PWD:/ipxe/src/bin pxe2/ipxe-builder make'
+                    sh 'docker run -v "$PWD":/ipxe/src/bin pxe2/ipxe-builder make'
                     sh 'tree'
                 }
             } 
